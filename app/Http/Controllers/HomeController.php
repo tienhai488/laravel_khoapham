@@ -7,7 +7,15 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        return 'HomeController.index';
+        $title = "Laravel";
+        $content = "Hoc lap trinh Laravel";
+        return view('clients/home/index',compact(['title','content']));
+        /**
+         * Co ba loai truyen data 
+         * - Truyen mang ['title'=>$title]
+         * - Truyen bang compact nhu tren 
+         * - Truyen bang with():  view()->with(['title'=>$title]) 
+         * */        
     }
     
     public function news(){

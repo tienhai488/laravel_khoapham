@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
 
@@ -50,6 +51,8 @@ use App\Http\Controllers\Admin\ProductsController;
 // });
 
 // Client Routes
+Route::get('/',[HomeController::class,'index'])->name('home');
+
 Route::prefix('categories')->group(function(){
     // Danh sach chuyen muc
     Route::get('/',[CategoriesController::class,'index'])->name('categories.list');

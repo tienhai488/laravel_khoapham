@@ -13,6 +13,8 @@ class Kernel extends HttpKernel
      *
      * @var array<int, class-string|string>
      */
+
+    //  cau hinh cac middleware luon duoc chay trong tat ca cac route 
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
@@ -29,6 +31,7 @@ class Kernel extends HttpKernel
      * @var array<string, array<int, class-string|string>>
      */
     protected $middlewareGroups = [
+        // middleware chi chay trong cac route app
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
@@ -37,7 +40,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-
+        
+        // middleware chi chay trong cac route api
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
@@ -52,6 +56,7 @@ class Kernel extends HttpKernel
      *
      * @var array<string, class-string|string>
      */
+    // cau hinh cac bien,chi duoc chay khi duoc chi dinh o mot route nao do
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
