@@ -10,7 +10,8 @@ class ProductsController extends Controller
     // Xem danh sach san pham GET
     public function index()
     {
-        return "<h1>Danh sach san pham</h1>";
+        $title = 'Product Admin';
+        return view('clients/product',compact(['title']));
     }
 
     // Them san pham GET

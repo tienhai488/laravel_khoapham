@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\Admin\ProductsController as ProAdmin;
 
 // Route::get('unicode',function(){
 //     return view('form');
@@ -53,26 +53,4 @@ use App\Http\Controllers\Admin\ProductsController;
 // Client Routes
 Route::get('/',[HomeController::class,'index'])->name('home');
 
-Route::prefix('categories')->group(function(){
-    // Danh sach chuyen muc
-    Route::get('/',[CategoriesController::class,'index'])->name('categories.list');
-
-    // Lay chi tiet mot chuyen muc de sua
-    Route::get('edit/{id}',[CategoriesController::class,'updateCategory'])->name('categories.update');
-
-    // Xu ly sua chuyen muc duoc chi dinh
-    Route::post('edit/{id}',[CategoriesController::class,'handleUpdateCategory']);
-
-    // Hien thi form them du lieu
-    Route::get('add',[CategoriesController::class,'addCategory'])->name('categories.add');
-
-    // Xu ly viec them du lieu 
-    Route::post('add',[CategoriesController::class,'handleAddCategory']);
-
-    //Xu ly xoa chuyen muc 
-    Route::delete('delete/{id}',[CategoriesController::class,'deleteCategory'])->name('categories.delete');
-
-});
-Route::prefix('admin')->group(function(){
-    Route::resource('product', ProductsController::class);
-});
+Route::get('san-pham',[ProductsController::class,'index'])->name('product');
