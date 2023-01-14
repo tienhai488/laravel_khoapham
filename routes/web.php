@@ -54,3 +54,7 @@ use App\Http\Controllers\Admin\ProductsController as ProAdmin;
 Route::get('/',[HomeController::class,'index'])->name('home');
 
 Route::get('san-pham',[ProductsController::class,'index'])->name('product');
+
+Route::get('them-san-pham',[ProductsController::class,'addProduct'])->name('addProduct');
+
+Route::post('them-san-pham',[ProductsController::class,'handleAddProduct'])->name('handleAddProduct');
