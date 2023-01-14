@@ -13,4 +13,6 @@
     <h1>Welcome!</h1>
     @include('clients.contents.slide')
     @include('clients.contents.about')
+
+    <x-alert-component type='warning' message='Dang ky thanh cong!' />
 @endsection
