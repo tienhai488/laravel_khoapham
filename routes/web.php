@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\Admin\ProductsController as ProAdmin;
+use App\Http\Controllers\UsersController;
 
 // Route::get('unicode',function(){
 //     return view('form');
@@ -58,3 +58,8 @@ Route::get('san-pham',[ProductsController::class,'index'])->name('product');
 Route::get('them-san-pham',[ProductsController::class,'addProduct'])->name('addProduct');
 
 Route::post('them-san-pham',[ProductsController::class,'handleAddProduct'])->name('handleAddProduct');
+
+
+Route::prefix('user')->group(function(){
+    Route::get('/',[UsersController::class,'index']);
+});

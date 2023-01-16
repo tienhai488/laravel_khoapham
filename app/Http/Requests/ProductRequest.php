@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\Uppercase;
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class ProductRequest extends FormRequest
 {
     public function authorize()
