@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -18,21 +19,27 @@ class ProductsController extends Controller
     }
 
     public function handleAddProduct(ProductRequest $request){
-        // $rules = [
-        //     'product_name' => 'required|min:6',
-        //     'product_price' => 'required|integer',
-        // ];
+        $rules = [
+            'product_name' => 'required|min:6',
+            'product_price' => 'required|integer',
+        ];
 
-        // $messages = [
-        //     'product_name.required'=>"Tên sản phẩm không được để trống!",
-        //     'product_name.min'=>"Tên sản phẩm có ít nhất :min ký tự!",
-        //     'product_price.required'=>"Giá sản phẩm không được để trống!",
-        //     'product_price.integer'=>"Giá sản phẩm không hợp lệ!",
-        // ];
+        $messages = [
+            'product_name.required'=>":attribute không được để trống!",
+            'product_name.min'=>":attribute có ít nhất :min ký tự!",
+            'product_price.required'=>":attribute không được để trống!",
+            'product_price.integer'=>":attribute không hợp lệ!",
+        ];
 
-        // // :min lấy giá trị đặt làm min
-        // // :attribute lây giá tri name của form input
+        $attributes = [
+            'product_name'=>'Tên sản phẩm',
+            'product_price'=>'Giá sản phẩm',
+        ];
+
+        // $validator = Validator::make($request->all(),$rules,$messages,$attributes);
 
         // $request->validate($rules,$messages);
+
+        return response()->json(['status'=>'success']);
     }
 }

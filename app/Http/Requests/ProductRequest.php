@@ -15,9 +15,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_name' => ['required','min:6', function($attribute,$value,$fail){
-                isUppercase($value,':attribute không hợp lệ!',$fail);
-            }],
+            'product_name' => ['required', 'min:6'],
             'product_price' => 'required|integer',
         ];
     }
@@ -46,12 +44,14 @@ class ProductRequest extends FormRequest
         ];
     }
 
-    // public function withValidator($validator)
-    // {
-    //     $validator->after(function ($validator) {
-    //         dd($validator);
-    //     });
-    // }
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($validator->errors()->count()>0) {
+                $validator->errors()->add('msg', 'Vui lòng kiểm tra lại dữ liệu!');
+            }
+        });
+    }
 
     // protected function prepareForValidation()
     // {

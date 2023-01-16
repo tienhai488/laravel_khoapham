@@ -36,8 +36,11 @@
 
     @include('clients.blocks.footer')
 
+
     <script src="{{ asset('assets/clients/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/clients/js/custom.js') }}"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    @yield('js')
 
 </body>
 
