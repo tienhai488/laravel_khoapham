@@ -20,4 +20,8 @@ class UsersModel extends Model
     public function insertUser($data){
         return DB::insert("insert into $this->table (fullname,email,create_at) values (?,?,?)",$data);
     }
+
+    public function updateUser($data,$id){
+        return DB::update("update $this->table set fullname = ?,email = ?,update_at = ? WHERE id = $id", $data);
+    }
 }

@@ -35,7 +35,7 @@
                         <td>{{ $user->fullname }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->create_at }}</td>
-                        <td><a href="" class="btn btn-sm btn-warning">Sửa</a></td>
+                        <td><a href="{{ route('user.get-edit', $user->id) }}" class="btn btn-sm btn-warning">Sửa</a></td>
                         <td><a href="" class="btn btn-sm btn-danger">Xóa</a></td>
                     </tr>
                 @endforeach
