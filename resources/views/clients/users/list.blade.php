@@ -35,8 +35,11 @@
                         <td>{{ $user->fullname }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->create_at }}</td>
-                        <td><a href="{{ route('user.get-edit', $user->id) }}" class="btn btn-sm btn-warning">Sửa</a></td>
-                        <td><a href="" class="btn btn-sm btn-danger">Xóa</a></td>
+                        <td><a href="{{ route('user.get-edit', ['id' => $user->id]) }}" class="btn btn-sm btn-warning">Sửa</a>
+                        </td>
+                        <td><a href="{{ route('user.delete', ['id' => $user->id]) }}"
+                                onclick="return confirm('Bạn có chắc chắn muốn xóa!');" class="btn btn-sm btn-danger">Xóa</a>
+                        </td>
                     </tr>
                 @endforeach
             @else

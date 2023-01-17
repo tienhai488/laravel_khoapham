@@ -17,8 +17,12 @@ Route::post('them-san-pham',[ProductsController::class,'handleAddProduct'])->nam
 
 Route::prefix('user')->name('user.')->group(function(){
     Route::get('/',[UsersController::class,'index'])->name('index');
+
     Route::get('add',[UsersController::class,'add'])->name('add');
     Route::post('add',[UsersController::class,'postAdd'])->name('post-add');
+
     Route::get('edit/{id}',[UsersController::class,'getEdit'])->name('get-edit');
     Route::post('update/',[UsersController::class,'postEdit'])->name('post-edit');
+
+    Route::get('delete/{id}',[UsersController::class,'delete'])->name('delete');
 });

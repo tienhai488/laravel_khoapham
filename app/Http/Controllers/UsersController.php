@@ -89,5 +89,19 @@ class UsersController extends Controller
         return redirect(route('user.index'))->with('msg','Cập nhập người dùng thành công!');
     }
 
+    public function delete($id){
+        if(!empty($id)){
+            $userDetail = $this->__usersModel->getUserDetail($id);
+            if(!empty($userDetail)){
+                $this->__usersModel->deleteUser($id);
+                return redirect(route('user.index'))->with('msg','Xóa người dùng thành công!');
+            }else{
+                return redirect(route('user.index'))->with('msg','Không tồn tại người dùng!');
+            }
+        }else{
+            return redirect(route('user.index'))->with('msg','Đường liên kết không tồn tại!');
+        }
+    }
+
 
 }
