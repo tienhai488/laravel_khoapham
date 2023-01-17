@@ -14,9 +14,25 @@ class UsersController extends Controller
         $this->__usersModel = new UsersModel();
     }
 
-    public function index(){
+    public function index(Request $request){
+        $filters = [];
+        if(!empty($request->status)){
+            if($request->status=='kichhoat'){
+                $filters[] = ['users.status',1];
+            }else{
+                $filters[] = ['users.status',0];
+            }
+        }
+
+        if(!empty($request->group_id)){
+            $filters[] = ['users.group_id',$request->group_id];
+        }
+        
         $title = "Quản lý người dùng";
-        $userList = $this->__usersModel->getAllUsers();
+
+        $userList = $this->__usersModel->getAllUsers($filters,$request->keyword);
+
+
         return view('clients/users/list',compact(['title','userList']));
     }
 
