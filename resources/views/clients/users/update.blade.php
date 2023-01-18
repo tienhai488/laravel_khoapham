@@ -22,7 +22,7 @@
 
     <form action="{{ route('user.post-edit') }}" method="post">
         @csrf
-        <div class="form-group">
+        <div class="mb-4">
             <label for="">Họ tên</label>
             <input name="fullname" type="text" class="form-control" placeholder="Họ tên..."
                 value="{{ old('fullname') ?? $userDetail->fullname }}">
@@ -31,7 +31,7 @@
             @enderror
         </div>
 
-        <div class="form-group">
+        <div class="mb-4">
             <label for="">Email</label>
             <input name="email" type="text" class="form-control" placeholder="Email..."
                 value="{{ old('email') ?? $userDetail->email }}">
@@ -39,6 +39,35 @@
                 <span style="color:red">{{ $message }}</span>
             @enderror
         </div>
+
+        <div class="mb-4">
+            <select class="form-control" name="group_id" id="">
+                <option value="0">Chọn nhóm</option>
+                @if (!empty(getAllGroups()))
+                    @foreach (getAllGroups() as $item)
+                        <option {{ (old('group_id') ?? $userDetail->group_id) == $item->id ? 'selected' : false }}
+                            value="{{ $item->id }}">
+                            {{ $item->fullname }}</option>
+                    @endforeach
+                @endif
+            </select>
+            @error('group_id')
+                <span style="color:red">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="mb-4">
+            <select name="status" id="" class="form-control">
+                <option {{ (old('group_id') ?? $userDetail->status) == '0' ? 'selected' : false }} value="0">Chưa kích
+                    hoạt</option>
+                <option {{ (old('group_id') ?? $userDetail->status) == '1' ? 'selected' : false }} value="1">Kích hoạt
+                </option>
+            </select>
+            @error('status')
+                <span style="color:red">{{ $message }}</span>
+            @enderror
+        </div>
+
         <button type="submit" class="btn btn-primary">Cập nhập</button>
         <a href="{{ route('user.index') }}" class="btn btn-warning">Quay lại</a>
     </form>

@@ -95,6 +95,6 @@
     </table>
 
     <div class="pagination-container d-flex justify-content-end">
-        {{ $userList->links() }}
+        {{ $userList->withQueryString()->links() }}
     </div>
 @endsection

@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    private $__usersModel;
+    private $__usersModel,$__table = 'users';
     const _PER_PAGE = 3;
+
     
     public function __construct()
     {
@@ -63,20 +64,39 @@ class UsersController extends Controller
     public function postAdd(Request $request){
         $request->validate([
             'fullname'=>'required|min:5',
-            'email'=>'required|email|unique:account_user,email'
+            'email'=>'required|email|unique:'.$this->__table.',email',
+            'group_id'=>['required',function($attribute,$value,$fail){
+                if($value==0){
+                    $fail("Vui lòng chọn nhóm!");
+                }
+            }],
+            'status'=>['required','integer',function($attribute,$value,$fail){
+                if($value!=0&&$value!=1){
+                    $fail("Trạng thái không hợp lệ!");
+                }
+            }],
         ],[
             'fullname.required'=>"Họ tên không được để trống!",
             'fullname.min'=>"Họ tên ít nhất :min kí tự!",
             'email.required'=>"Email không được để trống!",
             'email.email'=>"Email không hợp lệ!",
             'email.unique'=>"Email đã tồn tại!",
+            'group_id.required'=>"Vui lòng chọn nhóm!",
+            'group_id.integer'=>"Nhóm không hợp lệ!",
+            'status.required'=>"Vui lòng chọn trạng thái!",
+            'status.integer'=>"Trạng thái không hợp lệ!",
         ]);
 
+
         $dataInsert = [
-            request()->fullname,
-            request()->email,
-            date('Y-m-d H:i:s')
+            'fullname'=>$request->fullname,
+            'email'=>$request->email,
+            'group_id'=>$request->group_id,
+            'status'=>$request->status,
+            'create_at'=>date('Y-m-d H:i:s')
         ];
+
+        // dd($dataInsert);
 
         $this->__usersModel->insertUser($dataInsert);
 
@@ -86,9 +106,9 @@ class UsersController extends Controller
     public function getEdit(Request $request,$id){
         if(!empty($id)){
             $userDetail = $this->__usersModel->getUserDetail($id);
+
             if(!empty($userDetail)){
                 $title = 'Cập nhập người dùng';
-                $userDetail = $userDetail[0];
                 $request->session()->put('id', $id);
                 return view('clients.users.update',compact(['title','userDetail']));
             }else{
@@ -104,19 +124,35 @@ class UsersController extends Controller
 
         $request->validate([
             'fullname'=>'required|min:5',
-            'email'=>'required|email|unique:account_user,email,'.$id,
+            'email'=>'required|email|unique:'.$this->__table.',email,'.$id,
+            'group_id'=>['required',function($attribute,$value,$fail){
+                if($value==0){
+                    $fail("Vui lòng chọn nhóm!");
+                }
+            }],
+            'status'=>['required','integer',function($attribute,$value,$fail){
+                if($value!=0&&$value!=1){
+                    $fail("Trạng thái không hợp lệ!");
+                }
+            }],
         ],[
             'fullname.required'=>"Họ tên không được để trống!",
             'fullname.min'=>"Họ tên ít nhất :min kí tự!",
             'email.required'=>"Email không được để trống!",
             'email.email'=>"Email không hợp lệ!",
             'email.unique'=>"Email đã tồn tại!",
+            'group_id.required'=>"Vui lòng chọn nhóm!",
+            'group_id.integer'=>"Nhóm không hợp lệ!",
+            'status.required'=>"Vui lòng chọn trạng thái!",
+            'status.integer'=>"Trạng thái không hợp lệ!",
         ]);
 
         $dataUpdate = [
-            request()->fullname,
-            request()->email,
-            date('Y-m-d H:i:s')
+            'fullname'=>$request->fullname,
+            'email'=>$request->email,
+            'group_id'=>$request->group_id,
+            'status'=>$request->status,
+            'update_at'=>date('Y-m-d H:i:s')
         ];
 
         $this->__usersModel->updateUser($dataUpdate,$id);
