@@ -9,7 +9,7 @@ class UsersModel extends Model
 {
     protected $table = 'users';
     
-    public function getAllUsers($filters,$keyword = '',$sortArr = []){
+    public function getAllUsers($filters,$keyword = '',$sortArr = [],$perPage = null){
         // DB::enableQueryLog();
         $users = DB::table($this->table)->join('groups','groups.id','users.group_id')->select('users.*','groups.fullname as name_group');
         if(!empty($filters)){
@@ -33,7 +33,13 @@ class UsersModel extends Model
         }
         $users = $users->orderBy("$sortBy","$sortType");
 
-        return $users->get();
+        if(!empty($perPage)){
+            $users = $users->paginate($perPage)->withQueryString();
+        }else{
+            $users = $users->get();
+        }
+
+        return $users;
     }
 
     public function getUserDetail($id){

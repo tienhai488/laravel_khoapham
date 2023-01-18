@@ -93,4 +93,8 @@
 
         </tbody>
     </table>
+
+    <div class="pagination-container d-flex justify-content-end">
+        {{ $userList->links() }}
+    </div>
 @endsection

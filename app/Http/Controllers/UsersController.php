@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class UsersController extends Controller
 {
     private $__usersModel;
+    const _PER_PAGE = 3;
     
     public function __construct()
     {
@@ -49,9 +50,8 @@ class UsersController extends Controller
             'sortType'=>$sortTypeOld
         ];
 
-        $userList = $this->__usersModel->getAllUsers($filters,$request->keyword,$sortArr);
-
-
+        $userList = $this->__usersModel->getAllUsers($filters,$request->keyword,$sortArr,self::_PER_PAGE);
+    
         return view('clients/users/list',compact(['title','userList','sortBy','sortType','sortTypeOld']));
     }
 
