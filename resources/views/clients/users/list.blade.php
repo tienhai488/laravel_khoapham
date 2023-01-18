@@ -50,11 +50,13 @@
         <thead>
             <tr>
                 <th>STT</th>
-                <th>Tên</th>
-                <th>Email</th>
+                <th><a href="?sortBy=fullname&sortType={{ $sortBy == 'fullname' ? $sortType : $sortTypeOld }}">Tên</a>
+                </th>
+                <th><a href="?sortBy=email&sortType={{ $sortBy == 'email' ? $sortType : $sortTypeOld }}">Email</a></th>
                 <th>Nhóm</th>
                 <th>Trạng thái</th>
-                <th>Thời gian</th>
+                <th><a href="?sortBy=create_at&sortType={{ $sortBy == 'create_at' ? $sortType : $sortTypeOld }}">Thời
+                        gian</a></th>
                 <th>Sửa</th>
                 <th>Xóa</th>
             </tr>

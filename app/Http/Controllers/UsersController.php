@@ -30,10 +30,29 @@ class UsersController extends Controller
         
         $title = "Quản lý người dùng";
 
-        $userList = $this->__usersModel->getAllUsers($filters,$request->keyword);
+        $sortType = $request->sortType;
+        $sortBy = $request->sortBy;
+        
+        $allowSort = ['asc','desc'];
+        
+        if(empty($sortType)||!in_array($sortType,$allowSort)){
+            $sortType = 'asc';
+            $sortTypeOld =  $sortType;
+        }else{
+            $sortType = $sortType == 'desc' ? 'asc' : 'desc';
+            $sortTypeOld = $sortType == 'desc' ? 'asc' : 'desc';
+           
+        }
+
+        $sortArr = [
+            'sortBy'=>$sortBy,
+            'sortType'=>$sortTypeOld
+        ];
+
+        $userList = $this->__usersModel->getAllUsers($filters,$request->keyword,$sortArr);
 
 
-        return view('clients/users/list',compact(['title','userList']));
+        return view('clients/users/list',compact(['title','userList','sortBy','sortType','sortTypeOld']));
     }
 
     public function add(){

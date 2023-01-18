@@ -9,9 +9,9 @@ class UsersModel extends Model
 {
     protected $table = 'users';
     
-    public function getAllUsers($filters,$keyword = ''){
+    public function getAllUsers($filters,$keyword = '',$sortArr = []){
         // DB::enableQueryLog();
-        $users = DB::table($this->table)->orderBy('create_at','desc')->join('groups','groups.id','users.group_id')->select('users.*','groups.fullname as name_group');
+        $users = DB::table($this->table)->join('groups','groups.id','users.group_id')->select('users.*','groups.fullname as name_group');
         if(!empty($filters)){
             $users = $users->where($filters);
         }
@@ -23,9 +23,15 @@ class UsersModel extends Model
             });
         }
 
-        // $users = $users->get();
-        // $sql = DB::getQueryLog();
-        // dd($sql);
+        $sortBy = 'create_at';
+        $sortType = 'desc';
+        if(!empty($sortArr) && is_array($sortArr)){
+            if(!empty($sortArr['sortBy'])&&!empty($sortArr['sortType'])){
+                $sortBy = $sortArr['sortBy']; 
+                $sortType = $sortArr['sortType']; 
+            }
+        }
+        $users = $users->orderBy("$sortBy","$sortType");
 
         return $users->get();
     }
