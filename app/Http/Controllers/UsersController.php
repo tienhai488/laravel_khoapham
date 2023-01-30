@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PhoneModel;
 use App\Models\UsersModel;
 use Illuminate\Http\Request;
 
@@ -174,5 +175,13 @@ class UsersController extends Controller
         }
     }
 
+    public function relations(){
+        // $phoneUser = UsersModel::find(10)->phone;
+        // $phoneNumber = $phoneUser->phone;
+        // dd($phoneNumber);
+
+        $user = PhoneModel::where('phone','0987982144')->first()->user->fullname;
+        dd($user);
+    }
 
 }

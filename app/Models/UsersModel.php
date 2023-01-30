@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\DB;
 class UsersModel extends Model
 {
     protected $table = 'users';
+
+    public function phone()
+    {
+        return $this->hasOne(
+            PhoneModel::class,
+            'user_id',
+            'id'
+        );
+    }
     
     public function getAllUsers($filters,$keyword = '',$sortArr = [],$perPage = null){
         // DB::enableQueryLog();

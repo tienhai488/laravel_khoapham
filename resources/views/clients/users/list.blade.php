@@ -62,7 +62,8 @@
             </tr>
         </thead>
         <tbody>
-            @if (!empty(json_decode(json_encode($userList), true)))
+
+            @if (!empty(json_decode(json_encode($userList), true)['data']))
                 @foreach ($userList as $key => $user)
                     <tr>
                         <td>{{ $key + 1 }}</td>
