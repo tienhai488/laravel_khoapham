@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GroupsModel;
 use App\Models\PhoneModel;
 use App\Models\UsersModel;
 use Illuminate\Http\Request;
@@ -180,8 +181,14 @@ class UsersController extends Controller
         // $phoneNumber = $phoneUser->phone;
         // dd($phoneNumber);
 
-        $user = PhoneModel::where('phone','0987982144')->first()->user->fullname;
-        dd($user);
+        // $user = PhoneModel::where('phone','0987982144')->first()->user->fullname;
+        // dd($user);
+
+        // $users = GroupsModel::find(2)->user;
+        // dd($users);
+
+        $users = UsersModel::find(15)->group->fullname;
+        dd($users);
     }
 
 }
