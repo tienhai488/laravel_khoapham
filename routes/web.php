@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Auth;
 
 // Client Routes
 Route::get('/',[HomeController::class,'index'])->name('home');
@@ -35,3 +36,7 @@ Route::prefix('user')->name('user.')->group(function(){
 Route::prefix('posts')->name('posts.')->group(function(){
     Route::get('/',[PostController::class,'index'])->name('index');
 });
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
