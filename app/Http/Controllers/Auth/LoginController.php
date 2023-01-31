@@ -40,12 +40,11 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            $this->username() => 'required|string|email',
+            $this->username() => 'required|string',
             'password' => 'required|string|min:8',
         ],[
-            $this->username().'.required'=>'Vui lòng nhập vào email!',
+            $this->username().'.required'=>'Vui lòng nhập vào tên đăng nhập!',
             $this->username().'.string'=>'Dữ liệu nhập vào không hợp lệ!',
-            $this->username().'.email'=>'Email không hợp lệ!',
             'password.required'=>'Vui lòng nhập vào mật khẩu!',
             'password.string'=>'Mật khẩu nhập vào không hợp lệ!',
             'password.min'=>'Mật khẩu ít nhất :min kí tự!',
@@ -57,5 +56,25 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             $this->username() => ['Tên đăng nhập hoặc mật khẩu không đúng!'],
         ]);
+    }
+
+    public function username(){
+        return 'username';
+    }
+
+    protected function credentials(Request $request)
+    {
+        if(filter_var($request->username,FILTER_VALIDATE_EMAIL)){
+            $fieldDb = 'email';
+        }else{
+            $fieldDb = 'username';
+        }
+
+        $dataArr = [
+            $fieldDb => $request->username,
+            'password' => $request->password,
+        ];
+
+        return $dataArr;
     }
 }
