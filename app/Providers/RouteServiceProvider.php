@@ -14,6 +14,8 @@ class RouteServiceProvider extends ServiceProvider
 
     public const ADMIN = '/admin';
 
+    public const DOCTOR = '/doctor';
+
     public function boot()
     {
         $this->configureRateLimiting();
@@ -25,6 +27,11 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            //our custom route path
+            // Route::middleware('web')
+            // ->namespace($this->namespace)
+            // ->group(base_path('routes/doctor.php'));
         });
     }
 

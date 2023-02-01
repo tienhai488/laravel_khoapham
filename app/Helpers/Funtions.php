@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Doctor;
 use App\Models\GroupsModel;
 
 function isUppercase($value,$message,$fail){
@@ -11,4 +12,8 @@ function isUppercase($value,$message,$fail){
 function getAllGroups(){
     $groups = new GroupsModel();
     return $groups->getAllGroups();
+}
+
+function isDoctorActive($email){
+    return Doctor::where('email',$email)->where('is_active',1)->count() > 0;
 }

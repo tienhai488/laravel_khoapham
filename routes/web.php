@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Doctor\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -68,3 +69,12 @@ Route::post('/email/verification-notification', function (Request $request) {
  
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+
+// Doctor
+Route::prefix('doctor')->name('doctor.')->group(function(){
+    Route::get('/',[LoginController::class,'index'])->name('index');
+
+    Route::get('login',[LoginController::class,'login'])->name('login');
+
+    Route::post('login',[LoginController::class,'postLogin'])->name('post-login');
+});
