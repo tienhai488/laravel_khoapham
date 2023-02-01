@@ -30,7 +30,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'username'=>['required','string','min:5','max:20'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
             'password_confirmation' => ['required','same:password'],
         ],[
             'required'=>':attribute không được để trống!',
