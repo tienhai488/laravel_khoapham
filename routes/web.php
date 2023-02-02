@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Doctor\Auth\ForgotPasswordController;
 use App\Http\Controllers\Doctor\Auth\LoginController;
+use App\Http\Controllers\Doctor\Auth\ResetPasswordController;
 use App\Http\Controllers\Doctor\IndexController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -78,6 +80,14 @@ Route::prefix('doctor')->name('doctor.')->group(function(){
     Route::get('login',[LoginController::class,'login'])->name('login')->middleware('guest:doctor');
 
     Route::post('login',[LoginController::class,'postLogin'])->name('post-login')->middleware('guest:doctor');
+
+    Route::get('forgot-password',[ForgotPasswordController::class,'forgotPassword'])->name('forgot-password')->middleware('guest:doctor');
+
+    Route::post('forgot-password',[ForgotPasswordController::class,'sendResetLinkEmail'])->middleware('guest:doctor');
+
+    Route::get('reset-password/{token}',[ResetPasswordController::class,'showResetForm'])->middleware('guest:doctor')->name('reset-password');
+
+    Route::post('reset-password',[ResetPasswordController::class,'reset'])->middleware('guest:doctor')->name('update-password');
 
     Route::post('logout',function(){
         Auth::guard('doctor')->logout();

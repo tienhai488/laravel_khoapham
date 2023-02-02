@@ -5,31 +5,21 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Khu vực dành cho bác sĩ</div>
+                    <div class="card-header">Thay Đổi Mật Khẩu (Dành cho bác sĩ)</div>
 
                     <div class="card-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger text-center">
-                                Vui lòng kiểm tra dữ liệu nhập vào!
-                            </div>
-                        @endif
-
-                        @if (session('msg'))
-                            <div class="alert alert-danger text-center">
-                                {{ session('msg') }}
-                            </div>
-                        @endif
-
-                        <form method="POST" action="{{ route('doctor.post-login') }}">
+                        <form method="POST" action="{{ route('doctor.update-password') }}">
                             @csrf
 
+                            <input type="hidden" name="token" value="{{ $token }}">
+
                             <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">Tài khoản Email</label>
+                                <label for="email" class="col-md-4 col-form-label text-md-end">Địa chỉ Email</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="text" placeholder="Tài khoản Email..."
+                                    <input id="email" type="email" placeholder="Địa chỉ Email..."
                                         class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" autocomplete="email" autofocus>
+                                        value="{{ $email ?? old('email') }}" autocomplete="email" autofocus>
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -45,7 +35,7 @@
                                 <div class="col-md-6">
                                     <input id="password" type="password" placeholder="Mật Khẩu..."
                                         class="form-control @error('password') is-invalid @enderror" name="password"
-                                        autocomplete="current-password">
+                                        autocomplete="new-password">
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -56,29 +46,20 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                            {{ old('remember') ? 'checked' : '' }}>
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Nhập lại mật
+                                    khẩu</label>
 
-                                        <label class="form-check-label" for="remember">
-                                            Lưu mật khẩu
-                                        </label>
-                                    </div>
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" placeholder="Nhập lại mật khẩu..."
+                                        class="form-control" name="password_confirmation" autocomplete="new-password">
                                 </div>
                             </div>
 
                             <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
+                                <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Đăng Nhập
+                                        Xác Nhận
                                     </button>
-
-                                    @if (Route::has('doctor.forgot-password'))
-                                        <a class="btn btn-link" href="{{ route('doctor.forgot-password') }}">
-                                            Quên mật khẩu?
-                                        </a>
-                                    @endif
                                 </div>
                             </div>
                         </form>
